@@ -6,16 +6,28 @@
 ```lua title="Пример запроса к API на MoonLoader с использованием lua-requests"
 local requests = require('requests')
 
-local request_url = 'https://training-server.com/api/user/T0P4'
-local response = requests.get(request_url)
+function getUserInfo(nickname)
+  local requestUrl = 'https://training-server.com/api/user/' .. nickname
+  local response = requests.get(requestUrl)
+
+  return response
+end
+
+local userInfo = getUserInfo('T0P4')
+print(userInfo)
 ```
 
 ```py title="Пример запроса к API на Python"
 from requests import get
 
-request_url = 'https://training-server.com/api/user/T0P4'
-response = get(request_url).json()
-print(response)
+
+def get_user_info(nickname: str) -> dict:
+    request_url = 'https://training-server.com/api/user/' + nickname
+    response = get(request_url)
+    return response.json()
+
+user_info = get_user_info('T0P4')
+print(user_info)
 ```
 
 ## `/api/user/login`
@@ -24,7 +36,7 @@ print(response)
 
 ### Возвращаемые данные
 
-| параметр     | значение                                                          | пример                                                                         |
+| параметр     | описание                                                          | пример                                                                         |
 |--------------|-------------------------------------------------------------------|--------------------------------------------------------------------------------|
 | `id`         | ID аккаунта                                                       | `556588`                                                                       |
 | `login`      | никнейм аккаунта                                                  | `T0P4`                                                                         |
@@ -66,7 +78,7 @@ print(response)
 
 ### Параметры запроса
 
-| тип   | параметр | значение        | пример             |
+| тип   | параметр | описание        | пример             |
 |-------|----------|-----------------|--------------------|
 | `GET` | `page`   | страница списка | `/api/user?page=3` |
 
@@ -111,7 +123,7 @@ print(response)
 
 ### Возвращаемые данные
 
-| параметр    | значение                        | пример       |
+| параметр    | описание                        | пример       |
 |-------------|---------------------------------|--------------|
 | `id`        | ID аккаунта                     | `85405`      |
 | `login`     | никнейм аккаунта                | `"Sog"`      |
