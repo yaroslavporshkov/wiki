@@ -1,33 +1,26 @@
 # API
 
-Можно получать данные из базы данных сервера через HTTP API. Все данные возвращаются в JSON.
+Можно получать данные из базы данных сервера через REST API. Все данные возвращаются в JSON.
 На данный момент доступно только 4 метода.
 
 ```lua title="Пример запроса к API на MoonLoader с использованием lua-requests"
-local requests = require('requests')
+local requests = require("requests")
 
-function getUserInfo(nickname)
-  local requestUrl = 'https://training-server.com/api/user/' .. nickname
-  local response = requests.get(requestUrl)
-
-  return response
+function getUserInfo(name)
+  return requests.get("https://training-server.com/api/user/" .. name)
 end
 
-local userInfo = getUserInfo('T0P4')
-print(userInfo)
+print(getUserInfo("T0P4"))
 ```
 
 ```py title="Пример запроса к API на Python"
-from requests import get
+import requests
 
+def get_user_info(name: str) -> dict:
+    url = f"https://training-server.com/api/user/{name}"
+    return requests.get(url).json()
 
-def get_user_info(nickname: str) -> dict:
-    request_url = 'https://training-server.com/api/user/' + nickname
-    response = get(request_url)
-    return response.json()
-
-user_info = get_user_info('T0P4')
-print(user_info)
+print(get_user_info("T0P4"))
 ```
 
 ## `/api/user/login`
